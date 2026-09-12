@@ -1,6 +1,10 @@
 # 快問快答 UI
 
-一個使用 Python Tkinter 製作的簡單中文問答介面。使用者可以透過視窗按鈕回答問題，並立即看到答題結果。
+一個使用 Python Tkinter 與 HTML/CSS/JavaScript 製作的中文問答介面。使用者可以在桌面視窗或瀏覽器中回答問題，並立即看到答題結果。
+
+## 線上版本
+
+網站部署於 GitHub Pages：<https://xlistenz.github.io/quiz/>
 
 ## 功能
 
@@ -9,6 +13,7 @@
 - 即時顯示答題結果
 - 支援重新作答
 - 不需要額外安裝第三方 Python 套件
+- 提供 GitHub Pages 瀏覽器版本
 
 ## 環境需求
 
@@ -32,6 +37,8 @@ Windows 的官方 Python 安裝通常已經包含 Tkinter。若使用 Linux，�
    python hello.py
    ```
 
+也可以直接開啟 `index.html`，或使用上方的線上版本。
+
 ## 操作方式
 
 1. 執行程式後，視窗會顯示問題「楊子徹帥嗎？」。
@@ -44,8 +51,10 @@ Windows 的官方 Python 安裝通常已經包含 Tkinter。若使用 Linux，�
 ```text
 .
 ├── hello.py       # Tkinter 問答主程式
+├── index.html      # GitHub Pages 網頁版
 ├── README.md      # 專案說明文件
-└── .gitignore     # Git 忽略規則
+├── .gitignore      # Git 忽略規則
+└── .github/workflows/pages.yml  # GitHub Pages 部署流程
 ```
 
 ## 自訂題目

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="快問快答：一個簡單、好玩的中文問答介面。">
+  <title>快問快答</title>
+  <style>
+    :root {
+      --ink: #202124;
+      --muted: #77736b;
+      --paper: #fffdf8;
+      --cream: #f5f1e8;
+      --coral: #d85b43;
+      --coral-dark: #b94732;
+      --green: #2f7d5a;
+      --line: rgba(32, 33, 36, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: var(--ink);
+      background: radial-gradient(circle at 10% 10%, #fff9ee 0, transparent 34%), var(--cream);
+      font-family: "Microsoft JhengHei UI", "Noto Sans TC", sans-serif;
+    }
+
+    main {
+      width: min(100%, 560px);
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 70px rgba(80, 53, 33, 0.12);
+      animation: rise 500ms ease-out both;
+    }
+
+    header {
+      padding: 30px 36px 28px;
+      color: white;
+      background: var(--coral);
+    }
+
+    h1 { margin: 0; font-size: clamp(2rem, 7vw, 2.7rem); letter-spacing: 0; }
+    header p { margin: 4px 0 0; color: #ffe9df; }
+
+    .content { padding: 32px 36px 36px; }
+    .eyebrow { margin: 0 0 8px; color: var(--coral); font-size: .82rem; font-weight: 700; }
+    h2 { margin: 0 0 24px; font-size: clamp(1.65rem, 6vw, 2.2rem); }
+
+    .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    button {
+      min-height: 58px;
+      border: 0;
+      border-radius: 8px;
+      color: var(--ink);
+      background: white;
+      box-shadow: inset 0 0 0 1px var(--line);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+    button:hover, button:focus-visible { background: #f0e4d4; box-shadow: inset 0 0 0 2px #e2c9b4; transform: translateY(-2px); }
+    button:focus-visible { outline: 3px solid rgba(216, 91, 67, .35); outline-offset: 3px; }
+
+    .result { min-height: 28px; margin: 30px 0 18px; color: var(--muted); text-align: center; font-size: 1.05rem; font-weight: 700; }
+    .result.correct { color: var(--green); }
+    .result.wrong { color: var(--coral); }
+    .reset { display: block; min-height: auto; margin: 0 auto; padding: 10px 18px; color: white; background: var(--coral); box-shadow: none; font-size: .9rem; }
+    .reset:hover, .reset:focus-visible { color: white; background: var(--coral-dark); }
+
+    @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 460px) { header, .content { padding-left: 24px; padding-right: 24px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>快問快答</h1>
+      <p>選出你心中的答案吧</p>
+    </header>
+    <section class="content" aria-labelledby="question">
+      <p class="eyebrow">第 1 題</p>
+      <h2 id="question">楊子徹帥嗎？</h2>
+      <div class="options" role="group" aria-label="答案選項">
+        <button type="button" data-answer="wrong">1　帥</button>
+        <button type="button" data-answer="correct">2　不帥</button>
+      </div>
+      <p class="result" id="result" aria-live="polite">等待你的選擇...</p>
+      <button class="reset" id="reset" type="button">重新作答</button>
+    </section>
+  </main>
+  <script>
+    const result = document.querySelector("#result");
+    const answerButtons = document.querySelectorAll("[data-answer]");
+    const resetButton = document.querySelector("#reset");
+
+    answerButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const correct = button.dataset.answer === "correct";
+        result.textContent = correct ? "Bingo！答對囉" : "答案錯誤";
+        result.className = `result ${correct ? "correct" : "wrong"}`;
+      });
+    });
+
+    resetButton.addEventListener("click", () => {
+      result.textContent = "等待你的選擇...";
+      result.className = "result";
+    });
+  </script>
+</body>
+</html>
