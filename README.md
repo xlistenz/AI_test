@@ -6,10 +6,10 @@ AI Gesture Virtual Hand 是一個可直接在瀏覽器執行的 AI Computer Visi
 
 ## Demo
 
-- Live Demo：<https://YOUR_USERNAME.github.io/ai-gesture-virtual-hand/>
-- GitHub：<https://github.com/YOUR_USERNAME/ai-gesture-virtual-hand>
+- Live Demo：<https://xlistenz.github.io/AI_test/>
+- GitHub：<https://github.com/xlistenz/AI_test>
 
-請將 `YOUR_USERNAME` 替換成你的 GitHub 使用者名稱。這兩個網址是發布範本，不代表預先存在的帳號或 repository。
+目前 repository 名稱為 `AI_test`，因此 GitHub Pages 使用 `/AI_test/` 路徑。
 
 ## Features
 
