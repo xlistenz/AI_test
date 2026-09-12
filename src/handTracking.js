@@ -14,6 +14,8 @@ export class HandTracking {
     this.gestureRecognizer = null;
     this.animationFrame = 0;
     this.lastVideoTime = -1;
+    this.lastInferenceTime = 0;
+    this.inferenceInterval = 1000 / 30;
     this.running = false;
   }
 
@@ -29,7 +31,7 @@ export class HandTracking {
   async start() {
     if (!navigator.mediaDevices?.getUserMedia) throw new Error("BROWSER_UNSUPPORTED");
     this.stop();
-    this.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } } });
+    this.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: "user", width: { ideal: 640, max: 1280 }, height: { ideal: 480, max: 720 }, frameRate: { ideal: 30, max: 30 } } });
     this.video.srcObject = this.stream;
     await this.video.play();
     if (!this.handLandmarker || !this.gestureRecognizer) await this.load();
@@ -40,9 +42,11 @@ export class HandTracking {
 
   loop() {
     if (!this.running) return;
-    if (this.video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA && this.video.currentTime !== this.lastVideoTime) {
+    const now = performance.now();
+    if (now - this.lastInferenceTime >= this.inferenceInterval && this.video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA && this.video.currentTime !== this.lastVideoTime) {
       this.lastVideoTime = this.video.currentTime;
-      const timestamp = performance.now();
+      this.lastInferenceTime = now;
+      const timestamp = now;
       const hands = this.handLandmarker.detectForVideo(this.video, timestamp);
       const gestures = this.gestureRecognizer.recognizeForVideo(this.video, timestamp);
       this.onResult?.({ hands, gestures, timestamp });

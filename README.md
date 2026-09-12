@@ -26,11 +26,38 @@ AI Gesture Virtual Hand 是一個可直接在瀏覽器執行的 AI Computer Visi
 - 響應式桌面、筆電與 375px 以上手機版面
 - GitHub Actions 自動建置並部署 GitHub Pages
 
+## Robot Arm Mode
+
+Robot Arm Mode 是完全在瀏覽器內執行的 Virtual Robotic Arm，不使用 Arduino、ESP32 或任何真實馬達。它直接共用目前的 MediaPipe hand landmarks，將右手動作映射到 Three.js 模擬工業機械臂。
+
+- **Position Control**：掌心左右控制 Base Rotation，上下控制 Shoulder，手掌大小控制前伸與收回
+- **Rotation Control**：Index MCP、Pinky MCP 與 Wrist 推算掌面傾斜，控制 Wrist
+- **Gripper Control**：Thumb Tip 與 Index Tip 距離小於門檻時判定 PINCH，平滑開合夾爪
+- **Pinch Detection**：夾爪接近 Cube、Sphere、Cylinder、Ring 或 Small Box 時進行 collision detection 與吸附
+- **Object Interaction**：放開 PINCH 後物件留在目前位置並受重力式回落效果呈現
+- **Demo Mode**：自動完成左轉、抬臂、前伸、夾取、移動、放下與回 Home
+- **Home / Stop / Resume**：可隨時回到 Base 0°、Shoulder 15°、Elbow 45° 的安全位置或停止動畫
+
+控制資料流：
+
+```text
+Camera
+    ↓
+MediaPipe Hand Tracking
+    ↓
+21 Hand Landmarks + Gesture Recognition
+    ↓
+Robot Control + Pinch Collision
+    ↓
+Three.js Virtual Robot Arm
+```
+
 ## Technology
 
 - Vite
 - 原生 JavaScript ES Modules
 - HTML5、CSS3、Canvas 2D
+- Three.js WebGL
 - `@mediapipe/tasks-vision`
 - Web Camera API / `getUserMedia`
 - GitHub Actions / GitHub Pages
@@ -46,7 +73,7 @@ AI Gesture Virtual Hand 是一個可直接在瀏覽器執行的 AI Computer Visi
 
 ## Installation
 
-需求：Node.js 18 或更新版本、可使用攝影機的現代瀏覽器。
+需求：Node.js 18 或更新版本、可使用攝影機的現代瀏覽器。推薦 Chrome 或 Edge。
 
 ```bash
 npm install
@@ -129,6 +156,8 @@ base: "/ai-gesture-virtual-hand/"
 ```
 
 請在 repository Settings → Pages 將 Source 設為 GitHub Actions。
+
+效能預設值：Camera 640×480、AI inference 約 30 FPS、Render 使用 requestAnimationFrame 並以實際 FPS 顯示。MediaPipe inference 與 Three.js render 是兩個獨立 loop；Performance Mode 會降低視覺效果並維持較穩定的推理頻率。
 
 ## Git Commands
 

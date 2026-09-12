@@ -1,6 +1,6 @@
 {
   "name": "ai-gesture-virtual-hand",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "A browser-based AI gesture interface powered by MediaPipe Hand Landmarker.",
   "type": "module",
@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mediapipe/tasks-vision": "^0.10.22-rc.20250304"
+    "@mediapipe/tasks-vision": "^0.10.22-rc.20250304",
+    "three": "^0.186.0"
   },
   "devDependencies": {
     "vite": "^6.1.0"

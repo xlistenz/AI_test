@@ -10,6 +10,25 @@ export const GESTURE_LABELS = {
 export const FINGER_TIPS = [4, 8, 12, 16, 20];
 export const FINGER_PIPS = [3, 6, 10, 14, 18];
 
+export class GestureStabilizer {
+  constructor({ threshold = 0.65, samples = 4 } = {}) {
+    this.threshold = threshold;
+    this.samples = samples;
+    this.history = [];
+    this.current = "NONE";
+  }
+
+  update(gesture) {
+    const next = gesture.confidence >= this.threshold ? gesture.name : "NONE";
+    this.history.push(next);
+    this.history.splice(0, Math.max(0, this.history.length - this.samples));
+    const counts = this.history.reduce((result, name) => ({ ...result, [name]: (result[name] || 0) + 1 }), {});
+    const [candidate, count] = Object.entries(counts).sort((a, b) => b[1] - a[1])[0] || ["NONE", 0];
+    if (count >= Math.ceil(this.samples / 2)) this.current = candidate;
+    return { ...gesture, name: this.current };
+  }
+}
+
 export function getGesture(result) {
   const category = result?.gestures?.[0]?.[0];
   const rawName = category?.categoryName || "None";
