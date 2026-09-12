@@ -1,117 +1,26 @@
 <!doctype html>
 <html lang="zh-Hant">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="快問快答：一個簡單、好玩的中文問答介面。">
-  <title>快問快答</title>
-  <style>
-    :root {
-      --ink: #202124;
-      --muted: #77736b;
-      --paper: #fffdf8;
-      --cream: #f5f1e8;
-      --coral: #d85b43;
-      --coral-dark: #b94732;
-      --green: #2f7d5a;
-      --line: rgba(32, 33, 36, 0.12);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      min-height: 100vh;
-      margin: 0;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      color: var(--ink);
-      background: radial-gradient(circle at 10% 10%, #fff9ee 0, transparent 34%), var(--cream);
-      font-family: "Microsoft JhengHei UI", "Noto Sans TC", sans-serif;
-    }
-
-    main {
-      width: min(100%, 560px);
-      overflow: hidden;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      box-shadow: 0 24px 70px rgba(80, 53, 33, 0.12);
-      animation: rise 500ms ease-out both;
-    }
-
-    header {
-      padding: 30px 36px 28px;
-      color: white;
-      background: var(--coral);
-    }
-
-    h1 { margin: 0; font-size: clamp(2rem, 7vw, 2.7rem); letter-spacing: 0; }
-    header p { margin: 4px 0 0; color: #ffe9df; }
-
-    .content { padding: 32px 36px 36px; }
-    .eyebrow { margin: 0 0 8px; color: var(--coral); font-size: .82rem; font-weight: 700; }
-    h2 { margin: 0 0 24px; font-size: clamp(1.65rem, 6vw, 2.2rem); }
-
-    .options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    button {
-      min-height: 58px;
-      border: 0;
-      border-radius: 8px;
-      color: var(--ink);
-      background: white;
-      box-shadow: inset 0 0 0 1px var(--line);
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
-    }
-    button:hover, button:focus-visible { background: #f0e4d4; box-shadow: inset 0 0 0 2px #e2c9b4; transform: translateY(-2px); }
-    button:focus-visible { outline: 3px solid rgba(216, 91, 67, .35); outline-offset: 3px; }
-
-    .result { min-height: 28px; margin: 30px 0 18px; color: var(--muted); text-align: center; font-size: 1.05rem; font-weight: 700; }
-    .result.correct { color: var(--green); }
-    .result.wrong { color: var(--coral); }
-    .reset { display: block; min-height: auto; margin: 0 auto; padding: 10px 18px; color: white; background: var(--coral); box-shadow: none; font-size: .9rem; }
-    .reset:hover, .reset:focus-visible { color: white; background: var(--coral-dark); }
-
-    @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 460px) { header, .content { padding-left: 24px; padding-right: 24px; } }
-  </style>
-</head>
-<body>
-  <main>
-    <header>
-      <h1>快問快答</h1>
-      <p>選出你心中的答案吧</p>
-    </header>
-    <section class="content" aria-labelledby="question">
-      <p class="eyebrow">第 1 題</p>
-      <h2 id="question">楊子徹帥嗎？</h2>
-      <div class="options" role="group" aria-label="答案選項">
-        <button type="button" data-answer="wrong">1　帥</button>
-        <button type="button" data-answer="correct">2　不帥</button>
-      </div>
-      <p class="result" id="result" aria-live="polite">等待你的選擇...</p>
-      <button class="reset" id="reset" type="button">重新作答</button>
-    </section>
-  </main>
-  <script>
-    const result = document.querySelector("#result");
-    const answerButtons = document.querySelectorAll("[data-answer]");
-    const resetButton = document.querySelector("#reset");
-
-    answerButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const correct = button.dataset.answer === "correct";
-        result.textContent = correct ? "Bingo！答對囉" : "答案錯誤";
-        result.className = `result ${correct ? "correct" : "wrong"}`;
-      });
-    });
-
-    resetButton.addEventListener("click", () => {
-      result.textContent = "等待你的選擇...";
-      result.className = "result";
-    });
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#080d1d" />
+    <meta name="description" content="AI Gesture Virtual Hand：用你的手，控制數位世界。" />
+    <title>AI Gesture Virtual Hand</title>
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+    <header class="topbar"><a class="brand" href="./" aria-label="AI Gesture Virtual Hand home"><span class="brand-mark">◈</span><span><strong>AI GESTURE</strong><small>VIRTUAL HAND</small></span></a><div class="topbar-actions"><span class="privacy-chip"><span class="status-dot"></span> DEVICE-ONLY AI</span><button class="icon-button" id="help-button" type="button" aria-label="開啟使用說明">?</button></div></header>
+    <main class="app-shell">
+      <section class="hero-row"><div><p class="kicker">COMPUTER VISION / 01</p><h1>用你的手，<em>控制數位世界。</em></h1><p class="hero-copy">即時手勢追蹤、虛擬骨架與互動科技球，全部在瀏覽器裡完成。</p></div><div class="mode-switcher" role="tablist" aria-label="操作模式"><button class="mode-button active" data-mode="virtual" role="tab" aria-selected="true" type="button"><span>01</span>Virtual Hand</button><button class="mode-button" data-mode="object" role="tab" aria-selected="false" type="button"><span>02</span>Object Control</button><button class="mode-button" data-mode="lab" role="tab" aria-selected="false" type="button"><span>03</span>Gesture Lab</button></div></section>
+      <section class="workspace">
+        <aside class="panel camera-panel"><div class="panel-heading"><div><span class="panel-index">01 / INPUT</span><h2>Camera Preview</h2></div><span class="live-badge" id="camera-state">OFFLINE</span></div><div class="camera-frame"><video id="camera-video" autoplay playsinline muted></video><canvas id="camera-overlay"></canvas><div class="camera-placeholder" id="camera-placeholder"><div class="camera-orbit">⌁</div><strong>Camera Offline</strong><span>啟動攝影機，開始你的手勢旅程</span><button class="primary-button" id="start-camera" type="button"><span>◎</span> 啟動攝影機</button></div><div class="camera-corners"></div></div><div class="camera-controls"><label class="toggle-row"><span><b>Skeleton overlay</b><small>顯示手部骨架</small></span><input id="skeleton-toggle" type="checkbox" checked /><i></i></label><label class="toggle-row"><span><b>Mirror view</b><small>鏡像顯示前鏡頭</small></span><input id="mirror-toggle" type="checkbox" checked /><i></i></label></div><p class="privacy-note"><span>⌁</span> 影像只在裝置端進行手部分析，不會上傳攝影機畫面。</p></aside>
+        <section class="stage-panel panel" aria-label="虛擬手掌畫布"><div class="stage-heading"><span class="panel-index">02 / OUTPUT</span><span class="tracking-pill" id="tracking-state"><i></i> WAITING FOR HAND</span></div><div class="stage-canvas-wrap"><canvas id="virtual-canvas"></canvas><div class="stage-grid"></div><div class="stage-message" id="stage-message"><span class="pulse-ring"></span><strong>AI Tracking Standby</strong><small>允許攝影機以啟動虛擬手掌</small></div><div class="object-orb" id="object-orb"><span></span></div></div><div class="stage-footer"><div><span class="micro-label">CURRENT MODE</span><strong id="mode-label">VIRTUAL HAND</strong></div><div class="gesture-big"><span class="micro-label">GESTURE</span><strong id="gesture-label">NONE</strong></div><div class="power-meter"><span class="micro-label">SIGNAL</span><div><i></i><i></i><i></i><i></i><i></i></div></div></div></section>
+        <aside class="panel analytics-panel"><div class="panel-heading"><div><span class="panel-index">03 / ANALYSIS</span><h2>AI 手勢辨識</h2></div><span class="spark">✦</span></div><div class="metric-grid"><div class="metric"><span>Current Gesture</span><strong id="metric-gesture">NONE</strong></div><div class="metric"><span>Confidence</span><strong id="metric-confidence">--%</strong></div><div class="metric"><span>Hand</span><strong id="metric-hand">--</strong></div><div class="metric"><span>Tracking</span><strong class="success-text" id="metric-tracking">IDLE</strong></div><div class="metric"><span>FPS</span><strong id="metric-fps">--</strong></div><div class="metric"><span>Pinch</span><strong id="metric-pinch">OFF</strong></div></div><div class="history-section"><div class="section-label"><span>GESTURE HISTORY</span><span>LAST 5</span></div><ol id="gesture-history"><li><time>--:--:--</time><span>Awaiting signal</span></li></ol></div><button class="developer-button" id="developer-toggle" type="button"><span>⌘</span> Developer Mode <b>OFF</b></button></aside>
+      </section>
+      <section class="developer-panel panel hidden" id="developer-panel"><div class="panel-heading"><div><span class="panel-index">DEBUG / LANDMARKS</span><h2>Live Landmark Data</h2></div><span class="data-stream">STREAMING</span></div><div class="landmark-grid" id="landmark-grid"><p>啟動攝影機後顯示 21 個 hand landmarks。</p></div></section>
+      <div class="bottom-strip"><span><i class="status-dot"></i> LOCAL PROCESSING</span><span id="bottom-status">Camera Offline</span><span>MEDIAPIPE TASKS VISION</span><span>© 2026 AI GESTURE LAB</span></div>
+    </main>
+    <dialog id="help-dialog"><button class="dialog-close" id="close-help" type="button" aria-label="關閉">×</button><span class="panel-index">QUICK START</span><h2>讓手成為控制器</h2><p>允許攝影機後，將手放在畫面中。張開手掌、握拳、比讚或捏合拇指與食指，觀察虛擬手掌和科技球即時反應。</p><ul><li><b>食指</b> 移動科技球游標</li><li><b>捏合</b> 抓取並拖曳科技球</li><li><b>模式 3</b> 查看所有辨識手勢</li></ul><button class="primary-button" id="dialog-start" type="button">知道了</button></dialog><div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>

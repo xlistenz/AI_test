@@ -23,3 +23,8 @@ Thumbs.db
 # Local environment files
 .env
 .env.*
+
+# Vite build output
+dist/
+node_modules/
+npm-debug.log*
